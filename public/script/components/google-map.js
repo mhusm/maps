@@ -1,5 +1,6 @@
 Vue.component('google-map', {
     template: `<div><button v-on:click="toggleOverlay">Toggle overlay</button>
+    <button v-on:click="toggleMarker">Toggle marker</button>
     <div class="google-map" :id="mapName"></div></div>`,
     props: ['name', 'mapstyle'],
     data: function () {
@@ -17,6 +18,7 @@ Vue.component('google-map', {
         }
     
         this.map = new google.maps.Map(element, options);  
+        this.setStyle();
         
         var imageBounds = {
             north: 51.51335453974668,
@@ -25,10 +27,28 @@ Vue.component('google-map', {
             west: -0.22377228588868547
           };
   
-          this.overlay = new google.maps.GroundOverlay(
+        this.overlay = new google.maps.GroundOverlay(
               'resources/map.png',
               imageBounds);
-        this.setStyle();
+
+        this.marker = new google.maps.Marker({
+            position: this.map.getCenter(),
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 10,
+                strokeColor: "blue"
+            },
+        });
+
+        const contentString = `<div><h1>Wow</h1>
+        <div>Such content!</div></div>
+        `;
+        this.infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+        
+
+        this.marker.addListener('click', event => { this.infowindow.open(this.map, this.marker)});
     },
     watch: {
         // whenever style changes, this function will run
@@ -45,9 +65,16 @@ Vue.component('google-map', {
                 this.overlay.setMap(null);
             } else {
                 this.overlay.setMap(this.map);
-            }
-            
+            }           
+        },
+        toggleMarker: function(){
+            if (this.marker.map) {
+                this.marker.setMap(null);
+            } else {
+                this.marker.setMap(this.map);
+            }           
         }
+
     }
 })
   
