@@ -9,8 +9,11 @@ const Bar = { template: '<div>bar</div>' }
 // `Vue.extend()`, or just a component options object.
 // We'll talk about nested routes later.
 const routes = [
-  { path: '/foo', component: Vue.component("google-map"),  props: { name: "test" }},
-  { path: '/bar', component: Bar }
+    { path: '/map/:mapstyle', component: Vue.component("google-map"),  props: true},
+    { path: '/foo', component: Vue.component("google-map"),  props: { name: "test" }},
+    { path: '/bar', component: Bar },
+    // catch all redirect
+    { path: '*', redirect: '/map/default' }
 ]
 
 // 3. Create the router instance and pass the `routes` option

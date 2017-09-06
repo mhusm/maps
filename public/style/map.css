@@ -4,3 +4,11 @@
   margin: 0 auto;
   background: gray;
 }
+
+.router-link-exact-active {
+    font-weight: bold;
+}
+
+body {
+    font-family: sans-serif;
+}

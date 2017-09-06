@@ -41,7 +41,11 @@
         <!-- use router-link component for navigation. -->
         <!-- specify the link by passing the `to` prop. -->
         <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
-        <router-link to="/foo">Go to Foo</router-link>
+        <router-link to="/map/default">Default</router-link>
+        <router-link to="/map/silver">Silver</router-link>
+        <router-link to="/map/night">Night</router-link>
+        <router-link to="/map/retro">Retro</router-link>
+        <router-link to="/map/hiding">Hiding</router-link>
         <router-link to="/bar">Go to Bar</router-link>
     </p>
         <!-- route outlet -->
@@ -49,21 +53,11 @@
     <router-view></router-view>
 </div>
 
-<div id="style-selector-control"  class="map-control">
-    <select id="style-selector" class="selector-control">
-        <option value="default">Default</option>
-        <option value="silver">Silver</option>
-        <option value="night">Night mode</option>
-        <option value="retro" selected="selected">Retro</option>
-        <option value="hiding">Hide features</option>
-    </select>
-</div>
-
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPJJEEyWNFuAchwxlVFdpknW7YYRG25zk"></script>
 <script src="https://unpkg.com/vue"></script>
 <script src="script/components/google-map.js"></script>
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-<!-- <script src="script/map.js"></script> -->
+<script src="script/map.js"></script>
 <script src="script/app.js"></script>
     
 </body>
