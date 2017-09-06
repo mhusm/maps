@@ -10,9 +10,7 @@ const Bar = { template: '<div>bar</div>' }
 // We'll talk about nested routes later.
 const routes = [
     { path: '/map/:mapstyle', component: Vue.component("google-map"),  props: true},
-    { path: '/foo', component: Vue.component("google-map"),  props: { name: "test" }},
-    { path: '/bar', component: Bar },
-    // catch all redirect
+     // catch all redirect
     { path: '*', redirect: '/map/default' }
 ]
 

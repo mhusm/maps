@@ -1,10 +1,12 @@
 Vue.component('google-map', {
-    template: '<div class="google-map" :id="mapName"></div>',
+    template: `<div><button v-on:click="toggleOverlay">Toggle overlay</button>
+    <div class="google-map" :id="mapName"></div></div>`,
     props: ['name', 'mapstyle'],
     data: function () {
       return {
         mapName: this.name + "-map",
-        map: null
+        map: null,
+        overlay: null
       }
     },
     mounted: function () {
@@ -14,7 +16,18 @@ Vue.component('google-map', {
           center: new google.maps.LatLng(51.501527,-0.1921837)
         }
     
-        this.map = new google.maps.Map(element, options);    
+        this.map = new google.maps.Map(element, options);  
+        
+        var imageBounds = {
+            north: 51.51335453974668,
+            south: 51.49231033811266,
+            east: -0.15851916406245437,
+            west: -0.22377228588868547
+          };
+  
+          this.overlay = new google.maps.GroundOverlay(
+              'resources/map.png',
+              imageBounds);
         this.setStyle();
     },
     watch: {
@@ -26,6 +39,14 @@ Vue.component('google-map', {
     methods: {
         setStyle: function(newStyle) {
             this.map.setOptions({styles: mapstyles[this.mapstyle]});
+        },
+        toggleOverlay: function(){
+            if (this.overlay.map) {
+                this.overlay.setMap(null);
+            } else {
+                this.overlay.setMap(this.map);
+            }
+            
         }
     }
 })
