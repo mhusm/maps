@@ -4,6 +4,6 @@ var http = require('http').Server(app);
 
 app.use(express.static('public'));
 
-http.listen(8080, function(){
-    console.log('listening on *:8080');
+http.listen(process.env.PORT || 8080, function(){
+   // console.log('listening on *:8080');
 });
