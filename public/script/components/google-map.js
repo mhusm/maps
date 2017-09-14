@@ -50,7 +50,7 @@ Vue.component('google-map', {
     
                 // create infowindow
          //       this.configureInfoWindow(`<div id="iw-container">${item.fields.summary}<div class="iw-bottom-gradient"></div></div>`, marker);
-                this.configureInfoWindow(`<div id="info-window${index}"><info-window title="${item.fields.title}"></info-window></div>`, marker, index);
+                this.configureInfoWindow(`<div id="info-window${index}"><info-window title="${item.fields.title}" content="${item.fields.summary}" portrait="${item.fields.portrait.fields.file.url}"></info-window></div>`, marker, index);
                 
             })
         });
@@ -80,7 +80,7 @@ Vue.component('google-map', {
         '<div class="iw-bottom-gradient"></div>' +
         '</div>';
 
-        this.configureInfoWindow("<info-window></<info-window>", this.marker);
+        this.configureInfoWindow(`<div id="info-window${10}"><info-window title="Test"></info-window></div>`, this.marker, 10);
         
     },
     watch: {
