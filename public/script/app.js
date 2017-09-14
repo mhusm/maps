@@ -1,7 +1,11 @@
+// Setup the connection to the CMS
+const contentfulClient = contentful.createClient({
+  accessToken: '64d6a750c7ae5a7c93603911e56166b198ce5ab94be05261848e8a280ba8972c',
+  space: '7la5sjify8om'
+})
+
 // 1. Define route components.
 // These can be imported from other files
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
