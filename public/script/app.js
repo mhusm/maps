@@ -14,7 +14,8 @@ const contentfulClient = contentful.createClient({
 // We'll talk about nested routes later.
 const routes = [
     { path: '/map/:mapstyle', component: Vue.component("google-map"),  props: true},
-     // catch all redirect
+    { path: '/details/:id', component: Vue.component("details-page"),  props: true},
+    // catch all redirect
     { path: '*', redirect: '/map/default' }
 ]
 
