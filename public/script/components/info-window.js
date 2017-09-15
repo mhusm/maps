@@ -3,9 +3,9 @@ Vue.component('info-window', {
     `<div class="iw-container">
     <div class="iw-title">{{ title }}</div>
     <div class="iw-content">
-        {{ content }}
+    <img  :src="portrait" class="iw-img">
+    {{ content }}
         <router-link :to="'../details/' +id">More...</router-link>
-        <img  :src="portrait" height="115" width="83">
         </div>
     <div class="iw-bottom-gradient"></div>
     </div>`,

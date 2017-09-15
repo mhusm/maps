@@ -73,3 +73,12 @@ body {
 .details-page img {
     max-width: 80%;
 }
+
+.details-page .portrait {
+    float: right;
+    max-width: 40%;
+}
+
+.iw-content .iw-img {
+    max-width: 50%
+}
