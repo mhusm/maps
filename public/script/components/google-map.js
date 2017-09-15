@@ -1,6 +1,9 @@
 Vue.component('google-map', {
     template: `<div><button v-on:click="toggleOverlay">Toggle overlay</button>
     <button v-on:click="toggleMarker">Toggle marker</button>
+    <button v-on:click="togglePolyline">Toggle polyline</button>
+    <button v-on:click="togglePolygon">Toggle polygon</button>
+    <button v-on:click="toggleKML">Toggle KML</button>
     <div class="google-map" :id="mapName"></div></div>`,
     props: ['name', 'mapstyle'],
     data: function () {
@@ -8,8 +11,12 @@ Vue.component('google-map', {
         mapName: this.name + "-map",
         map: null,
         overlay: null,
-        markers: []
-      }
+        markers: [],
+        marker: null,
+        polyline: null,
+        polygon: null,
+        kml: null
+        }
     },
     mounted: function () {
         // load the map
@@ -60,6 +67,45 @@ Vue.component('google-map', {
             })
         });
         
+        // create a polyline
+        const plcoords = [
+            {lat: 51.513, lng: -0.223},
+            {lat: 51.51, lng: -0.21},
+            {lat: 51.50, lng: -0.20},
+            {lat: 51.49, lng: -0.168}
+          ];
+        this.polyline = new google.maps.Polyline({
+            path: plcoords,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        // create a polygon
+        const pgcoords = [
+            {lat: 51.513, lng: -0.223},
+            {lat: 51.51, lng: -0.21},
+            {lat: 51.50, lng: -0.20}
+            ];
+        this.polygon = new google.maps.Polygon({
+            path: pgcoords,
+            geodesic: true,
+            strokeColor: '#42cef4',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        contentfulClient.getAsset("6I6fDnGC7S8mGSeG2GEWio")
+        .then(entry => {
+            //show a kml file
+            console.log(entry);
+            this.kml = new google.maps.KmlLayer({
+                url: "https:" +entry.fields.file.url
+            });
+        })
+  
+        
 
         // set a marker
         this.marker = new google.maps.Marker({
@@ -96,6 +142,27 @@ Vue.component('google-map', {
                 this.marker.setMap(null);
             } else {
                 this.marker.setMap(this.map);
+            }           
+        },
+        togglePolyline: function(){
+            if (this.polyline.map) {
+                this.polyline.setMap(null);
+            } else {
+                this.polyline.setMap(this.map);
+            }           
+        },
+        togglePolygon: function(){
+            if (this.polygon.map) {
+                this.polygon.setMap(null);
+            } else {
+                this.polygon.setMap(this.map);
+            }           
+        },
+        toggleKML: function(){
+            if (this.kml.map) {
+                this.kml.setMap(null);
+            } else {
+                this.kml.setMap(this.map);
             }           
         },
         configureInfoWindow: function(contentString, marker, index) {

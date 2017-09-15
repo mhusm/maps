@@ -82,3 +82,8 @@ body {
 .iw-content .iw-img {
     max-width: 50%
 }
+
+#contentful {
+    position: absolute;
+    bottom: 0;
+}
