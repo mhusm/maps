@@ -12,7 +12,6 @@ Vue.component('google-map', {
         map: null,
         overlay: null,
         markers: [],
-        marker: null,
         polyline: null,
         polygon: null,
         kml: null
@@ -57,7 +56,6 @@ Vue.component('google-map', {
                     icon: icon
                     
                 });
-                marker.setMap(this.map)
     
                 // create infowindow
                 this.configureInfoWindow(`<div id="info-window${index}"><info-window title="${item.fields.title}" 
@@ -107,17 +105,6 @@ Vue.component('google-map', {
   
         
 
-        // set a marker
-        this.marker = new google.maps.Marker({
-            position: this.map.getCenter(),
-            icon: {
-                path: google.maps.SymbolPath.CIRCLE,
-                scale: 10,
-                strokeColor: "blue"
-            },
-        });
-
-        this.configureInfoWindow(`<div id="info-window${10}"><info-window title="Test"></info-window></div>`, this.marker, 10);
         
     },
     watch: {
@@ -138,10 +125,14 @@ Vue.component('google-map', {
             }           
         },
         toggleMarker: function(){
-            if (this.marker.map) {
-                this.marker.setMap(null);
+            if (this.markers.length > 0 && this.markers[0].map) {
+                this.markers.forEach(marker => {
+                    marker.setMap(null);
+                });
             } else {
-                this.marker.setMap(this.map);
+                this.markers.forEach(marker => {
+                    marker.setMap(this.map);
+                });
             }           
         },
         togglePolyline: function(){
